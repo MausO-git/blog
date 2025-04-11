@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
@@ -16,8 +17,15 @@
         //require_once fonctionne comme require mais vérifie si l'élément n'a pas déjà été introduit
         require("connexion.php");
         $req = $bdd->query("SELECT * FROM news");
-        while($don=$req->fetch()){
-            var_dump($don);
+        //par défaut fetch => fetch(PDO::FETCH_BOTH) donne un tableau associatif + numérique
+        //fetch(PDO::FETCH_NIM) donne un tableau numérque indice => $don[1]
+        //fetch(PDO::FETCH_ASSOC) donne un tableu associatif => $don['champs']
+        while($don=$req->fetch(PDO::FETCH_ASSOC)){
+            //var_dump($don);
+            echo "<a href='news.php?id=".$don['id']."' class='news'>";
+                echo "<h2>".$don['titre']."</h2>";
+                echo "<h4>".$don['date']."</h4>";
+            echo "</a>";
         };
         $req->closeCursor();
     ?>
