@@ -11,10 +11,18 @@
     require "connexion.php";
 
     //req à la bdd avec une inconnue (qui est id ?)
-    $req = $bdd->prepare("SELECT * FROM news WHERE id=?");
+    $req = $bdd->prepare("SELECT titre,contenu, DATE_FORMAT(date, '%d/%m/%Y %H:%i') as mydate FROM news WHERE id=?");
     $req->execute([$id]);
     $don = $req->fetch(PDO::FETCH_ASSOC);
     $req->closeCursor();
+    //vérifier si $don est vide
+    if(!$don){
+        //condition où il n'y a pas de valeur
+        //redirection vers une page not found 404 ou page d'acceuil
+        header("LOCATION:index.php");
+        exit();
+    }
+    
 ?>
 
 
@@ -34,7 +42,7 @@
 
     <!-- version plus simple -->
     <h2><?= $don['titre'] ?></h2>
-    <h4><?= $don['date'] ?></h4>
+    <h4><?= $don['mydate'] ?></h4>
 
     <div>
         <?= nl2br($don['contenu']) ?>
