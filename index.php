@@ -16,15 +16,9 @@
         //require_once fonctionne comme require mais vérifie si l'élément n'a pas déjà été introduit
         require("connexion.php");
         $req = $bdd->query("SELECT * FROM news");
-        $don = $req->fetch();
-        var_dump($don);
-        $don2 = $req->fetch();
-        var_dump($don2);
-        $don3 = $req->fetch();
-        var_dump($don3);
-        $don4 = $req->fetch();
-        var_dump($don4);
-        var_dump($req);
+        while($don=$req->fetch()){
+            var_dump($don);
+        };
         $req->closeCursor();
     ?>
 
