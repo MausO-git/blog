@@ -1,8 +1,9 @@
 <?php
     //besoin de l'id en get pour fonctionner
-    if(isset($_GET['id'])){
+    if(isset($_GET['id']) AND is_numeric($_GET['id'])){
         //protéger la valeur de l'id parceque mis dans l'url
         $id = htmlspecialchars(($_GET['id']));
+        
     }else{
         header("LOCATION:index.php");
         exit();
